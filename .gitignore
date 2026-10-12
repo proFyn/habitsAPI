@@ -69,6 +69,7 @@ Thumbs.db
 *.sublime-project
 
 # Testing
+tests/
 coverage/
 .nyc_output/
 test-results/
