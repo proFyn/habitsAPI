@@ -8,12 +8,8 @@ export default defineConfig({
     clearMocks: true,
     restoreMocks: true,
     // Ensure tests run sequentially to avoid database conflicts
-    pool: 'threads',
-    poolOptions: {
-      threads: {
-        singleThread: true
-      }
-    }
+  pool: 'threads',
+  fileParallelism: false, // run test files one at a time
   },
   plugins: [],
 })

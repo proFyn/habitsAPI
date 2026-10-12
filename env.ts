@@ -8,7 +8,7 @@ const isDevelopment = process.env.APP_STAGE === 'dev'
 const isTesting = process.env.APP_STAGE === 'test'
 
 if (isDevelopment) {
-  loadEnv()
+  loadEnv('dev')
 } else if (isTesting) {
   loadEnv('test')
 }
@@ -25,6 +25,8 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(32, 'Must be 32 chars long'),
   JWT_EXPIRES_IN: z.string().default('7d'),
   BCRYPT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
+  EMAIL_USER:z.string(),
+  EMAIL_PASSWORD:z.string()
 })
 
 export type Env = z.infer<typeof envSchema>
