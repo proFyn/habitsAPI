@@ -19,9 +19,9 @@ export const users = pgTable('users',{
     lastName:varchar('last_name',{length:50}),
     createdAt:timestamp('created_at').defaultNow().notNull(),
     updatedAt:timestamp('updated_at').defaultNow().notNull(),
-    emailVerified:boolean('email_verified').default(false).notNull() ,
-    verificationToken :varchar('verification_token',{length:250}),
-    verificationExpires:timestamp('verification_expires'),
+    // emailVerified:boolean('email_verified').default(false).notNull() ,
+    // verificationToken :varchar('verification_token',{length:250}),
+    // verificationExpires:timestamp('verification_expires'),
 })
 
 export const habits = pgTable('habits',{

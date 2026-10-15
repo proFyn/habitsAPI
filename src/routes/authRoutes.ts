@@ -25,40 +25,40 @@ const router = Router()
 router.post('/register',validateBody(registerSchema),register)
 
 router.post('/login',validateBody(loginSchema),login)
-router.get(
-  '/verify',
-  validateQuery(
-    z.object({
-      token: z.string()
-    })
-  ),
-  async (req, res) => {
+// router.get(
+//   '/verify',
+//   validateQuery(
+//     z.object({
+//       token: z.string()
+//     })
+//   ),
+//   async (req, res) => {
 
-    const { token } = req.query as { token: string }
+//     const { token } = req.query as { token: string }
 
-    const user = await db.query.users.findFirst({
-      where: and(
-        eq(users.verificationToken, token),
-        gt(users.verificationExpires, new Date())
-      )
-    })
+//     const user = await db.query.users.findFirst({
+//       where: and(
+//         eq(users.verificationToken, token),
+//         gt(users.verificationExpires, new Date())
+//       )
+//     })
 
-     if (!user) {
-    return res.status(400).json({ error: 'Invalid or expired token' })
+//      if (!user) {
+//     return res.status(400).json({ error: 'Invalid or expired token' })
 
     
-  }
-  await db.update(users)
-    .set({ 
-      emailVerified: true,
-      verificationToken: null,
-      verificationExpires: null
-    })
-    .where(eq(users.id, user.id))
+//   }
+//   await db.update(users)
+//     .set({ 
+//       emailVerified: true,
+//       verificationToken: null,
+//       verificationExpires: null
+//     })
+//     .where(eq(users.id, user.id))
 
-  res.json({ message: 'Email verified successfully' })
-  }
-)
+//   res.json({ message: 'Email verified successfully' })
+//   }
+// )
 
 
 export default router

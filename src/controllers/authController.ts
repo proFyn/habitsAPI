@@ -9,6 +9,7 @@ import { sendEmail } from "../utils/sendEmail.ts";
 import { eq,or } from "drizzle-orm";
 import { APIError } from "../middelware/errorHandler.ts";
 
+const apiUrl = process.env.RENDER_EXTERNAL_URL || 'http://localhost:3000';
 
 export const register = async(req:Request<any,any,NewUser>,res:Response)=>{
  
@@ -29,9 +30,9 @@ export const register = async(req:Request<any,any,NewUser>,res:Response)=>{
             
           ...req.body,
             password:hashedPassword,
-            emailVerified: false,
-            verificationToken : crypto.randomBytes(32).toString("hex"),
-            verificationExpires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+            // emailVerified: false,
+            // verificationToken : crypto.randomBytes(32).toString("hex"),
+            // verificationExpires: new Date(Date.now() + 24 * 60 * 60 * 1000),
            
         }).returning({
             id:users.id,
@@ -40,8 +41,8 @@ export const register = async(req:Request<any,any,NewUser>,res:Response)=>{
             firstName:users.firstName,
             lastName:users.lastName,
             createdAt:users.createdAt,
-            emailVerified:users.emailVerified,
-            verificationToken:users.verificationToken
+            // emailVerified:users.emailVerified,
+            // verificationToken:users.verificationToken
             
         })
     
@@ -54,28 +55,29 @@ export const register = async(req:Request<any,any,NewUser>,res:Response)=>{
 
     // 2. Send verification email
   
-    try {
+    // try {
       
-      await sendEmail({
-      to: user.email,
-      subject: 'Verify your email',
-      html: `
-        <h1>Welcome!</h1>
-        <p>Please verify your email by clicking:</p>
-        <a href="http://localhost:3000/api/auth/verify?token=${user.verificationToken}">
-          Verify Email
-        </a>
-        <p>This link expires in 24 hours.</p>
-      `
-    })
-    } catch (e) {
-      console.error("error in sending email " , e)
-    }
+    //   await sendEmail({
+    //   to: user.email,
+    //   subject: 'Verify your email',
+    //   html: `
+    //     <h1>Welcome!</h1>
+    //     <p>Please verify your email by clicking:</p>
+    //     <a href="${apiUrl}}/api/auth/verify?token=${user.verificationToken}">
+    //       Verify Email
+    //     </a>
+    //     <p>This link expires in 24 hours.</p>
+    //   `
+    // })
+    // } catch (e) {
+    //   console.error("error in sending email " , e)
+    // }
 
-    const { verificationToken, ...details } = user
+    const { ...details } = user
+    // const { verificationToken, ...details } = user
     return res.status(201).json({
-        message: 'Account created. Please check your email to verify.',
-        requiresVerification: true,
+        message: 'Account created.welcome',
+        // requiresVerification: true,
         details,
         token
     })
@@ -104,13 +106,13 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
       //   error:"invalid credentials"
       // })
     }
-    if (!user.emailVerified){
-        throw new APIError("Please verify your email first","ForbiddenError",403)
+    // if (!user.emailVerified){
+    //     throw new APIError("Please verify your email first","ForbiddenError",403)
 
-      // return res.status(401).json({
-      //   error : "email isn't valid,Please check your email to verify."
-      // })
-    }
+    //   // return res.status(401).json({
+    //   //   error : "email isn't valid,Please check your email to verify."
+    //   // })
+    // }
     const token = await generateToken({
       id : user.id,
       email : user.email,

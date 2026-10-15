@@ -9,7 +9,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { isTest } from '../env.ts'
 import { errorHandler, notFound } from './middelware/errorHandler.ts'
-import { APIError } from './middelware/errorHandler.ts'
+
 
 
 

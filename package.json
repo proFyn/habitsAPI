@@ -4,10 +4,9 @@
   "description": "Habit Tracker API for Node.js course",
   "main": "src/index.ts",
   "type": "module",
-      "engines": {
+  "engines": {
     "node": ">=24.3.0"
   },
-  
   "scripts": {
     "dev": "node --watch src/index.ts",
     "start": "node src/index.ts",
@@ -43,6 +42,7 @@
     "morgan": "^1.11.0",
     "nodemailer": "^10.1.0",
     "pg": "^8.16.3",
+    "resend": "^6.33.0",
     "ts-node": "^10.9.2",
     "zod": "^4.4.3"
   },

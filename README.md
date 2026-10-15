@@ -127,7 +127,8 @@ Representative responses:
   "token": "<jwt>"
 }
 ```
-- `GET /api/auth/verify?token=...` success `200`:
+still does not work
+<!-- - `GET /api/auth/verify?token=...` success `200`:
 ```json
 { "message": "Email verified successfully" }
 ```
@@ -135,7 +136,7 @@ Representative responses:
   - `400` validation failure
   - `401` unauthorized (invalid credentials / missing token)
   - `403` forbidden (email not verified, invalid/expired token)
-  - `409` conflict (duplicate email or username)
+  - `409` conflict (duplicate email or username) -->
 
 ### Habit Endpoints (CRUD)
 
@@ -207,13 +208,15 @@ curl -X POST "$BASE_URL/api/auth/register" \
   }'
 ```
 
-### 2) Verify email
+<!-- ### 2) Verify email
 
 ```bash
 curl "$BASE_URL/api/auth/verify?token=YOUR_EMAIL_VERIFICATION_TOKEN"
 ```
+ -->
 
-### 3) Login (get JWT)
+
+### 2) Login (get JWT)
 
 ```bash
 curl -X POST "$BASE_URL/api/auth/login" \
