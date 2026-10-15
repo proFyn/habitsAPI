@@ -27,7 +27,7 @@ const envSchema = z.object({
   BCRYPT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
   // EMAIL_USER:z.string(),
   // EMAIL_PASSWORD:z.string(),
-  RESEND_API_KEY:z.string()
+  // RESEND_API_KEY:z.string()
 })
 
 export type Env = z.infer<typeof envSchema>
