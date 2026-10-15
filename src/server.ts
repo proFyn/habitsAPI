@@ -27,6 +27,10 @@ app.get('/health',(req,res)=>{
 
     res.json({message :'hello'}).status(200)
 })
+app.get('/',(req,res)=>{
+
+    res.send('welcome :)').status(200)
+})
 
 
 
